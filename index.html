@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>U.S. Cities with a Metro System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <hgroup>
+          <h1>U.S. Cities with a Metro System</h1>
+          <p>Ranked by Annual Ridership (2024)</p>
+        </hgroup>
+      </header>
+      <section>
+        <div id="spinner" class="spinner-wrapper">
+          <div class="spinner"
+            ><div></div><div></div><div></div><div></div
+          ></div>
+        </div>
+        <div id="mapWrapper"></div>
+      </section>
+      <footer>
+        <p
+          >Data from
+          <a
+            href="https://en.wikipedia.org/wiki/List_of_metro_systems"
+            target="_blank"
+            >List of metro systems</a
+          ></p
+        >
+        <p
+          >Grid map algorithm adapted from:
+          <a href="https://observablehq.com/@neocartocnrs/grids" target="_blank"
+            >Let's Make Grids</a
+          >
+          and
+          <a
+            href="https://observablehq.com/@neocartocnrs/world-grids"
+            target="_blank"
+            >World Grids</a
+          ></p
+        >
+        <p
+          >Design adapted from
+          <a
+            href="https://www.behance.net/gallery/7758865/Visual-Exploration_2-Infographics"
+            target="_blank"
+            >Infographic: Open Data in the World</a
+          ></p
+        >
+      </footer>
+    </main>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
