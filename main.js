@@ -2,9 +2,10 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import * as topojson from "https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/+esm";
 
 Promise.all([
-  d3.csv("./data.csv", d3.autoType),
-  d3.json("./nation-10m.json"),
-]).then(([csv, us]) => {
+  d3.csv("./data/data.csv", d3.autoType),
+  d3.json("./data/nation-10m.json"),
+  d3.json("./data/grid-data.json"), // Pre-computed grid data
+]).then(([csv, us, grid]) => {
   const gridStep = 10;
   const dotRadius = gridStep / 2 - 1;
 
@@ -65,12 +66,14 @@ Promise.all([
     });
   }
 
-  const landGeometry = land.features[0].geometry;
-  const grid = mapGrid(
-    dotGrid(gridStep, width, height),
-    projection,
-    landGeometry
-  );
+  // Grid data computation is slow. A pre-computed grid data is used instead.
+
+  // const landGeometry = land.features[0].geometry;
+  // const grid = mapGrid(
+  //   dotGrid(gridStep, width, height),
+  //   projection,
+  //   landGeometry
+  // );
 
   const delaunay = d3.Delaunay.from(
     grid,
@@ -136,7 +139,7 @@ Promise.all([
     .attr("transform", (d) => `translate(${d.cell.geometry.coordinates})`)
     .on("pointerenter", entered)
     .on("pointerleave", left)
-    .on("touchstart", (e) => e.preventDefault());
+    .on("touchstart", (e) => e.preventDefault(), { passive: true });
   bubble
     .append("circle")
     .attr("class", "bubble__body")
