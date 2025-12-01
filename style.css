@@ -158,18 +158,19 @@ footer {
   fill: var(--color-primary);
 }
 
-.grid-map .bubble__rank {
+.grid-map .bubble__label {
   font-family: var(--font-size-md);
   fill: var(--color-text);
   user-select: none;
+  stroke: var(--color-background);
+  stroke-width: 3px;
+  paint-order: stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .grid-map .highlighted .bubble__body {
   fill: var(--color-primary);
-}
-
-.grid-map .highlighted .bubble__rank {
-  font-weight: var(--font-weight-heading);
 }
 
 .grid-map .tooltip {
@@ -183,7 +184,7 @@ footer {
   background-color: var(--color-background);
   display: none;
   opacity: 0;
-  transition: display 0.2s ease-in-out allow-discrete, opacity 0.2s ease-in-out;
+  transition: display 0.1s ease-in-out allow-discrete, opacity 0.1s ease-in-out;
 }
 
 .grid-map .tooltip.visible {

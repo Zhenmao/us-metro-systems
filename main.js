@@ -35,6 +35,23 @@ Promise.all([
     land
   );
 
+  const labelPlacement = new Map(
+    [
+      { city: "Atlanta", labelPlacement: "top" },
+      { city: "Baltimore", labelPlacement: "left" },
+      { city: "Boston", labelPlacement: "top" },
+      { city: "Chicago", labelPlacement: "top" },
+      { city: "Cleveland", labelPlacement: "top" },
+      { city: "Honolulu", labelPlacement: "top" },
+      { city: "Los Angeles", labelPlacement: "top" },
+      { city: "Miami", labelPlacement: "top" },
+      { city: "New York City", labelPlacement: "top" },
+      { city: "Philadelphia", labelPlacement: "right" },
+      { city: "San Francisco", labelPlacement: "top" },
+      { city: "Washington, D.C.", labelPlacement: "right" },
+    ].map((d) => [d.city, d.labelPlacement])
+  );
+
   // https://observablehq.com/@neocartocnrs/grids
   function dotGrid(step, width, height) {
     // build grid
@@ -147,10 +164,42 @@ Promise.all([
   bubble.append("circle").attr("class", "bubble__anchor").attr("r", dotRadius);
   bubble
     .append("text")
-    .attr("class", "bubble__rank")
-    .attr("text-anchor", "middle")
-    .attr("y", (d) => -bubbleScale(d.ridership) - 2)
-    .text((d) => d.rank);
+    .attr("class", "bubble__label")
+    .text((d) => `${d.rank}. ${d.city}`)
+    .each(function (d) {
+      const text = d3.select(this);
+
+      switch (labelPlacement.get(d.city)) {
+        case "top":
+          text
+            .attr("text-anchor", "middle")
+            .attr("y", -bubbleScale(d.ridership) - 4);
+          break;
+
+        case "right":
+          text
+            .attr("x", (d) => bubbleScale(d.ridership) + 4)
+            .attr("dy", "0.32em");
+          break;
+
+        case "bottom":
+          text
+            .attr("text-anchor", "middle")
+            .attr("y", bubbleScale(d.ridership) + 4)
+            .attr("dy", "0.71em");
+          break;
+
+        case "left":
+          text
+            .attr("text-anchor", "end")
+            .attr("x", (d) => -bubbleScale(d.ridership) - 4)
+            .attr("dy", "0.32em");
+          break;
+
+        default:
+          break;
+      }
+    });
 
   const tooltip = container.append("div").attr("class", "tooltip");
 
